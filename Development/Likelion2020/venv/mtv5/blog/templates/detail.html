@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    
+<h1>detail page 입니다.</h1>
+
+<div class="container">
+    <h1>{{ blog.title }}</h1>
+    <p>{{ blog.pub_date }}</p>
+    <p>{{ blog.body }}</p>
+    <a href="{% url 'blog:home' %}">돌아가기</a>
+</div>
+
+<!-- 댓글표시 (추가내용)-->
+
+    <hr>
+    {% for comment in blog.comments.all %}
+        <div class="comment">
+            <div class="date">{{ comment.created_at }}</div>
+            <strong>{{ comment.author_name }}</strong>
+            <p>{{ comment.comment_text|linebreaks }}</p>
+        </div>
+    {% empty %}
+        <p>No comments here yet</p>
+    {% endfor %}
+    
+    <hr>
+    <a class="btn btn-default" href="{% url 'blog:add_comment_to_post' blog.id %}">댓글달기</a>
+
+</body>
+</html>
+
